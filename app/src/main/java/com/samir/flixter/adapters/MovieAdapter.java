@@ -58,18 +58,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
         public void bind(Movie movie) {
             tvTitle.setText(movie.getTitle());
-            String[] overViewText = movie.getOverview().split(" ");
-            String summaryText = "";
-            for(int i = 0; i < overViewText.length; i++){
-                if(i <= 55){
-                    summaryText += overViewText[i] + " ";
-                }else{
-                    summaryText += "...";
-                    break;
-                }
+            tvOverview.setText(movie.getOverview());
 
-            }
-            tvOverview.setText(summaryText);
             String imageUrl;
             //if phone in landscape
             if (context.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
@@ -79,7 +69,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
                 imageUrl = movie.getPosterPath();
             }
 
-            Glide.with(context).load(imageUrl).into(ivPoster);
+            Glide.with(context)
+                    .load(imageUrl)
+                    .into(ivPoster);
         }
     }
 }
