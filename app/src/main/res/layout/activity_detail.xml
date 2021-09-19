@@ -43,6 +43,8 @@
             />
 
         <TextView
+            android:transitionName="movieOverView"
+            android:scaleType="centerCrop"
             android:id="@+id/tvOverview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

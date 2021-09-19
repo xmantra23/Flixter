@@ -30,6 +30,8 @@
         tools:text="This is just a test text." />
 
     <TextView
+        android:transitionName="movieOverView"
+        android:scaleType="centerCrop"
         android:id="@+id/tvOverView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
