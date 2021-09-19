@@ -2,6 +2,7 @@ package com.samir.flixter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.RatingBar;
@@ -40,10 +41,15 @@ public class DetailActivity extends YouTubeBaseActivity{
         ratingBar = findViewById(R.id.ratingBar);
         playerView = findViewById(R.id.player);
 
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE){
+            playerView.getLayoutParams().height = 1000;
+        }
+
         Movie movie = Parcels.unwrap(getIntent().getParcelableExtra("movie"));
         tvTitle.setText(movie.getTitle());
         tvOverview.setText(movie.getOverview());
         ratingBar.setRating((float) movie.getRating());
+
 
         AsyncHttpClient client = new AsyncHttpClient();
         client.get(String.format(VIDEOS_URL, movie.getMovieId()), new JsonHttpResponseHandler() {
