@@ -21,6 +21,7 @@ import com.bumptech.glide.load.resource.bitmap.CenterInside;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.samir.flixter.DetailActivity;
 import com.samir.flixter.R;
+import com.samir.flixter.databinding.ItemMoviesBinding;
 import com.samir.flixter.models.Movie;
 
 import org.parceler.Parcels;
@@ -57,22 +58,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        RelativeLayout container;
-        TextView tvTitle;
-        TextView tvOverview;
-        ImageView ivPoster;
+        final ItemMoviesBinding binding;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvOverview = itemView.findViewById(R.id.tvOverView);
-            ivPoster = itemView.findViewById(R.id.ivPoster);
-            container = itemView.findViewById(R.id.container);
+            binding = ItemMoviesBinding.bind(itemView);
         }
 
         public void bind(Movie movie) {
-            tvTitle.setText(movie.getTitle());
-            tvOverview.setText(movie.getOverview());
+            binding.tvTitle.setText(movie.getTitle());
+            binding.tvOverView.setText(movie.getOverview());
 
             String imageUrl;
             //if phone in landscape
@@ -86,14 +81,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
             Glide.with(context)
                     .load(imageUrl)
                     .transform(new CenterInside(),new RoundedCornersTransformation(50,0))
-                    .into(ivPoster);
+                    .into(binding.ivPoster);
 
 
-            container.setOnClickListener(view -> {
+            binding.container.setOnClickListener(view -> {
                 Intent i = new Intent(context, DetailActivity.class);
                 i.putExtra("movie", Parcels.wrap(movie));
                 ActivityOptionsCompat options = ActivityOptionsCompat.
-                        makeSceneTransitionAnimation((Activity)context, (View)tvOverview, "movieOverView");
+                        makeSceneTransitionAnimation((Activity)context, (View)binding.tvOverView, "movieOverView");
                 context.startActivity(i,options.toBundle());
             });
         }
