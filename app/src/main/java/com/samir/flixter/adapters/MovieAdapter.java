@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.view.LayoutInflater;
+import android.view.RoundedCorner;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -14,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CenterInside;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.samir.flixter.DetailActivity;
 import com.samir.flixter.R;
 import com.samir.flixter.models.Movie;
@@ -21,6 +24,8 @@ import com.samir.flixter.models.Movie;
 import org.parceler.Parcels;
 
 import java.util.List;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
     Context context;
@@ -78,7 +83,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder>{
 
             Glide.with(context)
                     .load(imageUrl)
+                    .transform(new CenterInside(),new RoundedCornersTransformation(50,0))
                     .into(ivPoster);
+
 
             container.setOnClickListener(view -> {
                 Intent i = new Intent(context, DetailActivity.class);
